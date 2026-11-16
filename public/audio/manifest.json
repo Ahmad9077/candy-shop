@@ -1,0 +1,443 @@
+{
+  "voices": {
+    "ar": {
+      "id": "isQLuoVuANx6FjDxyasX",
+      "name": "Noura - Soft and Polished",
+      "language": "ar"
+    }
+  },
+  "model": "eleven_v4",
+  "settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.8,
+    "style": 0.2
+  },
+  "clips": {
+    "ar/c/delivered": {
+      "text": "وصل الطلب! شكراً دبدوب.",
+      "hash": "5a139a133cde7119",
+      "durationMs": 2483,
+      "bytes": 20523
+    },
+    "ar/c/hi-1": {
+      "text": "هلا!",
+      "hash": "78865037db7e7a38",
+      "durationMs": 639,
+      "bytes": 5685
+    },
+    "ar/c/hi-2": {
+      "text": "مرحبا!",
+      "hash": "20fe0eae86700cc0",
+      "durationMs": 961,
+      "bytes": 8193
+    },
+    "ar/c/hi-3": {
+      "text": "السلام عليكم!",
+      "hash": "9c8792f000d7d615",
+      "durationMs": 1330,
+      "bytes": 11118
+    },
+    "ar/c/hi-4": {
+      "text": "صباح الخير!",
+      "hash": "10268eee80178d6d",
+      "durationMs": 1135,
+      "bytes": 9656
+    },
+    "ar/c/hi-dima": {
+      "text": "هلا ديما!",
+      "hash": "52a85d0bb840b15d",
+      "durationMs": 1040,
+      "bytes": 8820
+    },
+    "ar/c/may-i": {
+      "text": "ممكن",
+      "hash": "7b4e174674022744",
+      "durationMs": 751,
+      "bytes": 6521
+    },
+    "ar/c/not-my-house-1": {
+      "text": "مو بيتي!",
+      "hash": "f1e751d7de8a3331",
+      "durationMs": 940,
+      "bytes": 7984
+    },
+    "ar/c/not-my-house-2": {
+      "text": "بيتي مو هني!",
+      "hash": "acb12044386bf54d",
+      "durationMs": 1600,
+      "bytes": 13417
+    },
+    "ar/c/p-candy": {
+      "text": "حلاو",
+      "hash": "02160027cf984a61",
+      "durationMs": 768,
+      "bytes": 6730
+    },
+    "ar/c/p-choc": {
+      "text": "كاكاو",
+      "hash": "b8fbf9e8c6b36503",
+      "durationMs": 829,
+      "bytes": 7148
+    },
+    "ar/c/p-takis": {
+      "text": "تاكيز",
+      "hash": "33d8d989a8813f4c",
+      "durationMs": 1029,
+      "bytes": 8820
+    },
+    "ar/c/thanks-1": {
+      "text": "شكراً!",
+      "hash": "ba59418ace5e0d9b",
+      "durationMs": 865,
+      "bytes": 7566
+    },
+    "ar/c/thanks-2": {
+      "text": "لذيذ!",
+      "hash": "015507d9efef279e",
+      "durationMs": 1039,
+      "bytes": 8820
+    },
+    "ar/c/thanks-3": {
+      "text": "مشكورين!",
+      "hash": "6c53f3ea6f7a61ff",
+      "durationMs": 1069,
+      "bytes": 9029
+    },
+    "ar/c/thanks-4": {
+      "text": "أحلى بقالة!",
+      "hash": "2ed67db10b29d13d",
+      "durationMs": 1429,
+      "bytes": 11954
+    },
+    "ar/c/thanks-5": {
+      "text": "باي باي!",
+      "hash": "229baf04b5f89f2d",
+      "durationMs": 924,
+      "bytes": 7984
+    },
+    "ar/c/thanks-6": {
+      "text": "وايد حلو!",
+      "hash": "3a3605a56541cef3",
+      "durationMs": 1203,
+      "bytes": 10283
+    },
+    "ar/c/thanks-dima": {
+      "text": "مشكورة يا ديما!",
+      "hash": "97ee36ba7fd99637",
+      "durationMs": 1416,
+      "bytes": 11954
+    },
+    "ar/c/too-few": {
+      "text": "ناقص شوي.",
+      "hash": "6fb7a1a39bbc8325",
+      "durationMs": 1133,
+      "bytes": 9656
+    },
+    "ar/c/too-many": {
+      "text": "هذا زايد.",
+      "hash": "743451c03df86a02",
+      "durationMs": 1281,
+      "bytes": 10909
+    },
+    "ar/c/two-bags": {
+      "text": "في كيسين",
+      "hash": "a5e0f8d278107de3",
+      "durationMs": 1111,
+      "bytes": 9447
+    },
+    "ar/c/wait-1": {
+      "text": "لحظة، خل نعد.",
+      "hash": "491b9107165b2acd",
+      "durationMs": 1658,
+      "bytes": 13835
+    },
+    "ar/c/wait-2": {
+      "text": "خل نشوف كم فيها.",
+      "hash": "5d477d6560d52dfa",
+      "durationMs": 1520,
+      "bytes": 12790
+    },
+    "ar/c/wait-3": {
+      "text": "نعدهم؟",
+      "hash": "cbd2af1f29363e58",
+      "durationMs": 989,
+      "bytes": 8402
+    },
+    "ar/c/want": {
+      "text": "أبي",
+      "hash": "99b01874ff137e86",
+      "durationMs": 602,
+      "bytes": 5476
+    },
+    "ar/g/back-to-train": {
+      "text": "نتدرب شوي مع دبدوب، وبعدين نرجع للمنافسة.",
+      "hash": "22f24ba7721aa844",
+      "durationMs": 4037,
+      "bytes": 32852
+    },
+    "ar/g/bigger-first": {
+      "text": "نبدأ بالعدد الأكبر.",
+      "hash": "a4ea43eab0517de7",
+      "durationMs": 1729,
+      "bytes": 14462
+    },
+    "ar/g/closed": {
+      "text": "البقالة سكرت. نعد نقاط اليوم!",
+      "hash": "b0a289eb0a2b5145",
+      "durationMs": 3188,
+      "bytes": 26165
+    },
+    "ar/g/compete": {
+      "text": "بدت المنافسة! الحين نعد بروحنا. الطلب الصح بنقطتين، والغلط ينقص نقطتين.",
+      "hash": "3e54fcb9013cd4f3",
+      "durationMs": 7565,
+      "bytes": 61065
+    },
+    "ar/g/compete-more": {
+      "text": "وهالطلب بعد دخل المنافسة!",
+      "hash": "2fb03d1bbb1867bf",
+      "durationMs": 2721,
+      "bytes": 22403
+    },
+    "ar/g/day-down": {
+      "text": "اليوم راحت علينا نقاط. نعد على مهلنا قبل الجرس.",
+      "hash": "b0428436a3950fcf",
+      "durationMs": 4622,
+      "bytes": 37450
+    },
+    "ar/g/delivery": {
+      "text": "طلب توصيل! دبدوب يوصله بالسكوتر.",
+      "hash": "29de86a72dbdddb9",
+      "durationMs": 3348,
+      "bytes": 27419
+    },
+    "ar/g/door": {
+      "text": "وإذا وصل، نلمس باب البيت.",
+      "hash": "da9e36b316382d11",
+      "durationMs": 2714,
+      "bytes": 22194
+    },
+    "ar/g/goal": {
+      "text": "ديما، عندنا تحدي! إذا جمعنا مئتين نقطة بدون مساعدة، بابا راح يودينا البقالة ونشتري تاكيز!",
+      "hash": "15ff0b7248c05949",
+      "durationMs": 8080,
+      "bytes": 65244
+    },
+    "ar/g/goal-100": {
+      "text": "مئة نقطة! هذا نص الطريق يا ديما.",
+      "hash": "a40b356e2ae5a41c",
+      "durationMs": 3494,
+      "bytes": 28464
+    },
+    "ar/g/goal-150": {
+      "text": "مئة وخمسين نقطة! باقي خمسين بس.",
+      "hash": "d8117504d13ca3e7",
+      "durationMs": 3372,
+      "bytes": 27628
+    },
+    "ar/g/goal-200": {
+      "text": "مئتين نقطة! وصلنا يا ديما! قولي حق بابا: يلا نروح البقالة!",
+      "hash": "65646a4310c2701e",
+      "durationMs": 5528,
+      "bytes": 44764
+    },
+    "ar/g/goal-50": {
+      "text": "جمعنا خمسين نقطة! بدينا الطريق.",
+      "hash": "156f66b7e05d4b6c",
+      "durationMs": 3183,
+      "bytes": 25956
+    },
+    "ar/g/house-done": {
+      "text": "بيت العدد كمل! وهذي خمسة نقاط زيادة.",
+      "hash": "e087ffc7b874a487",
+      "durationMs": 3980,
+      "bytes": 32434
+    },
+    "ar/g/near-1": {
+      "text": "كل يوم نقرب من التاكيز.",
+      "hash": "f52d6a55e62568ab",
+      "durationMs": 2616,
+      "bytes": 21567
+    },
+    "ar/g/near-2": {
+      "text": "النقاط تزيد، والتاكيز يقرب!",
+      "hash": "2b99000e933fd4c0",
+      "durationMs": 3079,
+      "bytes": 25120
+    },
+    "ar/g/near-3": {
+      "text": "شوي شوي ونوصل المئتين.",
+      "hash": "31662bade17e6690",
+      "durationMs": 2632,
+      "bytes": 21567
+    },
+    "ar/g/new-customer": {
+      "text": "زبون جديد صار يعرف بقالتنا!",
+      "hash": "39b81a9bf6e0a7ef",
+      "durationMs": 2719,
+      "bytes": 22403
+    },
+    "ar/g/new-day": {
+      "text": "يوم جديد، والبقالة تفتح.",
+      "hash": "c090b52ac96e6707",
+      "durationMs": 2625,
+      "bytes": 21567
+    },
+    "ar/g/open": {
+      "text": "البقالة فتحت! وأول زبون وصل.",
+      "hash": "b5f27dc24be419d5",
+      "durationMs": 3018,
+      "bytes": 24702
+    },
+    "ar/g/points-no": {
+      "text": "الطلب ما كان مضبوط، فنقصت نقطتين. نعد على مهلنا قبل لا ندق الجرس.",
+      "hash": "66ca7f1ef4848c37",
+      "durationMs": 6341,
+      "bytes": 51243
+    },
+    "ar/g/points-yes": {
+      "text": "الطلب مضبوط، وهذي نقطتين!",
+      "hash": "0a560fdd3579c647",
+      "durationMs": 2811,
+      "bytes": 23030
+    },
+    "ar/g/ready-box": {
+      "text": "هذي علبة جاهزة، وعددها مكتوب عليها. نكمل عليها بس.",
+      "hash": "d065d2e1968f39c8",
+      "durationMs": 4469,
+      "bytes": 36405
+    },
+    "ar/g/ride": {
+      "text": "كل لمسة يمشي دبدوب بيت واحد.",
+      "hash": "58e41e74cc37292f",
+      "durationMs": 3155,
+      "bytes": 25747
+    },
+    "ar/g/ring-bell": {
+      "text": "وإذا كمل الطلب، ندق الجرس.",
+      "hash": "ded767df60fee1c6",
+      "durationMs": 2812,
+      "bytes": 23030
+    },
+    "ar/g/sticker": {
+      "text": "الزبون يبي الكل في كيس واحد. نختار ستيكر العدد.",
+      "hash": "2cd0fd4cdb65b08d",
+      "durationMs": 4508,
+      "bytes": 36614
+    },
+    "ar/g/take-out": {
+      "text": "وإذا زادت حبة، نلمسها وترجع.",
+      "hash": "8b6749e7203da689",
+      "durationMs": 3440,
+      "bytes": 28046
+    },
+    "ar/g/tap-box": {
+      "text": "نلمس العلبة ونسمع كم فيها.",
+      "hash": "185abe0018be4bfe",
+      "durationMs": 2692,
+      "bytes": 22194
+    },
+    "ar/g/tap-jar": {
+      "text": "نلمس اللي يبيه الزبون، وتنزل حبة في العلبة.",
+      "hash": "91f49f7e4ee64231",
+      "durationMs": 3641,
+      "bytes": 29718
+    },
+    "ar/g/train": {
+      "text": "بالبداية دبدوب يعد ويانا. هذا تدريب، وما فيه نقاط.",
+      "hash": "7650f06387dcb29e",
+      "durationMs": 4997,
+      "bytes": 40585
+    },
+    "ar/g/two-bags": {
+      "text": "هذا الزبون يبي طلبه في كيسين. نوزعه مثل ما نبي.",
+      "hash": "b1bf6f3428a51bdf",
+      "durationMs": 4286,
+      "bytes": 34942
+    },
+    "ar/g/two-bags-new": {
+      "text": "كل مرة نوزعه غير، ونعبي بيت العدد.",
+      "hash": "254d49187ab02a3a",
+      "durationMs": 3508,
+      "bytes": 28673
+    },
+    "ar/n/0": {
+      "text": "صفر.",
+      "hash": "0b51c85c4edf9f66",
+      "durationMs": 663,
+      "bytes": 5894
+    },
+    "ar/n/1": {
+      "text": "واحد.",
+      "hash": "a523d7da43c12941",
+      "durationMs": 768,
+      "bytes": 6730
+    },
+    "ar/n/10": {
+      "text": "عشرة.",
+      "hash": "028e5f10315bff0b",
+      "durationMs": 880,
+      "bytes": 7566
+    },
+    "ar/n/2": {
+      "text": "اثنان.",
+      "hash": "d10a74caeda0a9d7",
+      "durationMs": 842,
+      "bytes": 7357
+    },
+    "ar/n/3": {
+      "text": "ثلاثة.",
+      "hash": "a604fb99b53f0773",
+      "durationMs": 1120,
+      "bytes": 9447
+    },
+    "ar/n/4": {
+      "text": "أربعة.",
+      "hash": "5ab6213802c4c2b4",
+      "durationMs": 697,
+      "bytes": 6103
+    },
+    "ar/n/5": {
+      "text": "خمسة.",
+      "hash": "1983ba5e9f2d6f7d",
+      "durationMs": 733,
+      "bytes": 6521
+    },
+    "ar/n/6": {
+      "text": "ستة.",
+      "hash": "ebd6eada3029f302",
+      "durationMs": 711,
+      "bytes": 6312
+    },
+    "ar/n/7": {
+      "text": "سبعة.",
+      "hash": "4a74bd922aa4ba6a",
+      "durationMs": 723,
+      "bytes": 6312
+    },
+    "ar/n/8": {
+      "text": "ثمانية.",
+      "hash": "e671081e644de92b",
+      "durationMs": 884,
+      "bytes": 7566
+    },
+    "ar/n/9": {
+      "text": "تسعة.",
+      "hash": "7d210d5357daf574",
+      "durationMs": 655,
+      "bytes": 5894
+    },
+    "ar/ui/equal": {
+      "text": "يساوي",
+      "hash": "ee91eb169d08f425",
+      "durationMs": 942,
+      "bytes": 8193
+    },
+    "ar/ui/plus": {
+      "text": "زائد",
+      "hash": "1be08afc08b9c5de",
+      "durationMs": 859,
+      "bytes": 7357
+    }
+  }
+}
