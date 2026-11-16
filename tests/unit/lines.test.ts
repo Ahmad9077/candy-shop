@@ -33,7 +33,9 @@ describe('the lines of version 2', () => {
     expect(CHILD_NAME).toBe('ديما')
   })
 
-  it('has every line of the brief word for word, with the changes of §8.6, §9 and §10.4', () => {
+  // The brief is kept on the owner's machine, outside the repository: where it is missing (the
+  // deploy), this comparison is skipped; every other rule about the lines still runs.
+  it.skipIf(!fs.existsSync('DESIGN.md'))('has every line of the brief word for word, with the changes of §8.6, §9 and §10.4', () => {
     const brief = fs.readFileSync('DESIGN.md', 'utf8')
     const v2 = brief.slice(brief.indexOf('| id | text |'), brief.indexOf('## 5.'))
     const v3 = brief.slice(brief.indexOf('### 8.6'), brief.indexOf('### 8.7')) + brief.slice(brief.indexOf('## 9.'))
