@@ -1,54 +1,54 @@
 // «للأهل»: plain Arabic for her parents: the idea, the challenge and its rule, her points, the order
-// types with their mode (training / competition, with a switch) and hidden level, her most-missed
-// facts, the switches, a new challenge and a reset.
+// types with their step of help (training, light training for the ready box, competition; the
+// parents can set it) and hidden level, her most-missed facts, the switches, the balance reset and a
+// full reset.
 import { useState } from 'react'
 import { ar } from '../domain/digits'
-import { ORDER_TYPES, type Mode, type OrderType } from '../domain/orders'
+import { ORDER_TYPES, stepsOf, type Mode, type OrderType } from '../domain/orders'
 import { CHILD_NAME } from '../data/lines'
-import { GOAL, POINTS_FULL_HOUSE, POINTS_NEW_SPLIT, POINTS_RIGHT, mostMissed, type ShopProgress } from '../domain/progress'
+import { GOAL, POINTS_RIGHT, mostMissed, type ShopProgress } from '../domain/progress'
 
 const IDEA = {
-  why: 'طريقة «احفظي العدد الأول وعدي على أصابعج» تطلب من الطفل ثلاث أشياء مرة وحدة: يمسك العدد الأول كمجموعة، ويكمل العد من نصه، ويحسب كم زاد. أغلب أطفال الصف الأول ما يقدرون عليها قبل ما يشوفون العدد بعيونهم ويلمسونه بإيدهم. في البقالة ما في أسئلة: الزبون يبي طلب، وهي تعبيه حبة حبة وتسمع العد، وتدق الجرس. الجمع هو اللي تسويه إيدها عشان يطلع الطلب صح.',
+  why: 'أغلب أطفال الصف الأول يعدون كومة من واحد بدون مشكلة. الصعب هو إنهم يمسكون العدد الأول بروسهم ويكملون العد منه: قدام ٥ + ٣ يرجعون يعدون من واحد. في البقالة الزبون يطلب عدد، مثلاً «أبي سبعة تاكيز»، وعلى الكاونتر علبة جاهزة مسكرة مكتوب عليها عددها، مثلاً خمسة. هي تلمس التاكيز تحت وتنزل حبة حبة على الصينية جنب العلبة، والعد يكمل من عدد العلبة: «ستة، سبعة»، وبعدين تدق الجرس. ما في أسئلة، والزبون ما يقول «غلط»: إذا دقت الجرس والعدد مو مضبوط، الحبات نفسها توريها الجواب وهي تصلحه.',
   how: [
-    'عشر دقايق باليوم تكفي: يوم واحد في البقالة (خمس زباين).',
+    'عشرة دقايق باليوم تكفي. اللعبة ما فيها أيام ولا جولات: الزباين يجون ورا بعض، وتقدرون توقفون متى ما بغيتوا.',
     'أول مرتين اقعدوا يمها، وخلوها هي اللي تلمس.',
-    'خلوها تعد بصوت عالي مع الراوية.',
-    'إذا الطلب ناقص أو زايد، الزبون يعد معها وهي تصلحه. ما في «غلط».',
-    'الأشياء الجديدة تجي بروحها لما تكون جاهزة. لا تستعجلونها.',
+    'خلوها تقول عدد العلبة بصوت عالي، وبعدين تكمل: «خمسة، ستة، سبعة».',
+    'إذا دقت الجرس والعدد مو مضبوط، ما ينقص شي: العلبة تنفتح وتعد من عددها، والحبات الناقصة تطلع كأماكن فاضية عليها أرقامها، والزايدة يبهت لونها. وهي تصلحها وتدق مرة ثانية.',
+    'المساعدة تخف بروحها لما تكون جاهزة، وترجع إذا احتاجتها. لا تستعجلونها.',
   ],
   home: 'كوب وخرز أو حبات تمر: نحط خمسة في الكوب ونغطيه بإيدنا، ونحط اثنين برا. نلمس الكوب ونقول «خمسة»، وبعدين نلمس كل حبة برا: «ستة، سبعة». وبعدها نفتح الكوب ونتأكد.',
 }
 
-const TEACHES: Partial<Record<OrderType, { name: string; teaches: string }>> = {
+const TEACHES: Record<OrderType, { name: string; teaches: string }> = {
+  C: { name: 'علبة جاهزة', teaches: 'تكمل العد من علبة مسكرة مكتوب عليها عددها، وتنزل حبة حبة على الصينية لين يكمل الطلب، وتدق الجرس. هذا الطلب الأساسي.' },
   A: { name: 'طلب', teaches: 'تعد عدد معين من الكاكاو أو الحلاو أو التاكيز، وآخر عدد قالته هو كم في العلبة.' },
-  C: { name: 'علبة جاهزة', teaches: 'تكمل العد من علبة مسكرة مكتوب عليها عددها: قلب الجمع.' },
-  B: { name: 'كيسين', teaches: 'توزع عدد واحد من نفس النوع على كيسين مثل ما تبي: كل مرة توزيعة جديدة، وبيت العدد يتعبى مثل درس «تكوين ٤ و ٥ و ٩».' },
   D: { name: 'توصيل', teaches: 'تكمل العد على خط الأعداد (شارع البيوت ٠–١٠) مثل القفزات في الكتاب.' },
-  E: { name: 'كيس واحد', teaches: 'تلقى ناتج الجمع وتختار ستيكر العدد. بالتدريب الحبات برا الكيس تعدها، وبالمنافسة تجي في كيس مسكر عليه عدده.' },
 }
+
+/** The name of each step of help, as the parents read it. */
+const STEP_NAME: Record<Mode, string> = { help: 'تدريب', bridge: 'تدريب خفيف', compete: 'منافسة' }
 
 export function ParentsScreen({
   progress,
   onBack,
-  onAllOrders,
   onToggleType,
   onMode,
-  onNewChallenge,
+  onResetBalance,
   onVoice,
   onReset,
 }: {
   progress: ShopProgress
   onBack: () => void
-  onAllOrders: (value: boolean) => void
   onToggleType: (type: OrderType, on: boolean) => void
   onMode: (type: OrderType, mode: Mode) => void
-  onNewChallenge: () => void
+  onResetBalance: () => void
   onVoice: (value: boolean) => void
   onReset: () => void
 }) {
   const [confirming, setConfirming] = useState(false)
-  const [renewing, setRenewing] = useState(false)
-  const [renewed, setRenewed] = useState(false)
+  const [confirmingBalance, setConfirmingBalance] = useState(false)
+  const [balanceDone, setBalanceDone] = useState(false)
   const [resetDone, setResetDone] = useState(false)
   const missed = mostMissed(progress)
   return (
@@ -82,47 +82,42 @@ export function ParentsScreen({
             إذا جمعت {CHILD_NAME} {ar(GOAL)} نقطة بدون مساعدة، بابا ياخذها البقالة وتشتري تاكيز من صدق.
           </p>
           <ul className="p-rule" data-parent-rule>
-            <li>كل نوع طلب يبدأ «تدريب»: دبدوب يعد معها، يقول العدد مع كل لمسة، وتطلع أرقام ونقاط تساعدها. بالتدريب ما في نقاط، واللوحة ما تتحرك.</li>
-            <li>
-              إذا ضبطت أربعة من آخر خمسة طلبات من أول مرة، يدخل هالنوع «المنافسة»: ما في أي مساعدة في العد. الطلب الصح من أول مرة ياخذ{' '}
-              {ar(POINTS_RIGHT)} نقطة، والغلط ينقص {ar(POINTS_RIGHT)} (النقاط ما تنزل تحت الصفر)، وبعدها الزبون يعد معها وهي تصلحه.
-            </li>
-            <li>إذا ضبطت طلب واحد أو أقل من آخر خمسة في المنافسة، يرجع هالنوع تدريب لين تقوى فيه.</li>
-            <li>
-              في «كيسين» بالمنافسة: كل توزيعة جديدة {ar(POINTS_NEW_SPLIT)} نقطة زيادة، وبيت العدد إذا كمل {ar(POINTS_FULL_HOUSE)} نقاط زيادة.
-            </li>
-            <li>تقدرون تنقلون أي نوع بين التدريب والمنافسة بإيدكم من «الطلبات» تحت.</li>
+            <li>«علبة جاهزة» تمر بثلاثة خطوات. «تدريب»: دبدوب يقول عدد العلبة أول، ومع كل حبة تنزل على الصينية يكمل العد، وعلى كل حبة رقمها. «تدريب خفيف»: دبدوب يقول عدد العلبة بس، وهي تكمل العد بروحها. «منافسة»: ما في أي مساعدة في العد.</li>
+            <li>بالتدريب ما في نقاط، واللوحة ما تتحرك. بالمنافسة كل طلب صح من أول مرة ياخذ {ar(POINTS_RIGHT)} نقطة، والغلط ما ينقص شي.</li>
+            <li>إذا ضبطت أربعة من آخر خمسة طلبات من أول مرة، تطلع خطوة. وإذا غلطت مرتين ورا بعض من أول مرة، ترجع خطوة عشان تاخذ المساعدة.</li>
+            <li>تقدرون تحطون أي نوع على الخطوة اللي تبونها من «الطلبات» تحت.</li>
           </ul>
           <p className="p-points">
             نقاطها: <strong data-parent-points={progress.points}>{ar(progress.points)}</strong> من {ar(GOAL)}
             {progress.won ? ' · وصلت! الكوبون لها.' : ''}
           </p>
-          {renewing ? (
-            <div className="confirm" role="alertdialog" aria-label="تأكيد التحدي الجديد">
-              <p>النقاط ترجع صفر، والمستويات تبقى مثل ما هي. متأكدين؟</p>
+          <p className="p-meta">في نسخة الـ Hub الرصيد ينحفظ بحسابها، والأدمن يقدر يصفره من هناك.</p>
+          {confirmingBalance ? (
+            <div className="confirm" role="alertdialog" aria-label="تأكيد تصفير الرصيد">
+              <p>النقاط ترجع صفر، والخطوات والمستويات تبقى مثل ما هي. متأكدين؟</p>
               <div className="confirm-buttons">
                 <button
                   type="button"
                   className="p-button p-danger"
                   onClick={() => {
-                    onNewChallenge()
-                    setRenewing(false)
-                    setRenewed(true)
+                    onResetBalance()
+                    setConfirmingBalance(false)
+                    setBalanceDone(true)
                   }}
                 >
-                  نعم، تحدي جديد
+                  نعم، نصفر الرصيد
                 </button>
-                <button type="button" className="p-button" onClick={() => setRenewing(false)}>
+                <button type="button" className="p-button" onClick={() => setConfirmingBalance(false)}>
                   لا، نرجع
                 </button>
               </div>
             </div>
           ) : (
-            <button type="button" className="p-button" onClick={() => setRenewing(true)}>
-              تحدي جديد
+            <button type="button" className="p-button" onClick={() => setConfirmingBalance(true)}>
+              تصفير الرصيد
             </button>
           )}
-          {renewed ? <p className="p-done" role="status">بدأ تحدي جديد.</p> : null}
+          {balanceDone ? <p className="p-done" role="status">الرصيد صار صفر.</p> : null}
         </section>
 
         <section className="p-card">
@@ -131,27 +126,29 @@ export function ParentsScreen({
             {ORDER_TYPES.map((t) => {
               const info = progress.types[t]
               const text = TEACHES[t]
-              if (!text) return null
-              const arrived = progress.arrived.includes(t) || progress.allOrders
-              const compete = info.mode === 'compete'
+              const on = !progress.disabled.includes(t)
               return (
                 <li key={t} data-parent-order={t} data-parent-mode={info.mode}>
                   <span className="p-text">
                     <strong>{text.name}:</strong> {text.teaches}
                     <span className="p-meta">
-                      {arrived ? `${compete ? 'منافسة' : 'تدريب'} · المستوى ${ar(info.level)} · ${ar(info.served)} زبون` : 'ما وصل البقالة للحين'}
+                      {on ? '' : 'مسكر · '}
+                      {STEP_NAME[info.mode]} · المستوى {ar(info.level)} · {ar(info.served)} زبون
                     </span>
-                    <label className="switch p-mode" data-mode-switch={t}>
-                      <input type="checkbox" role="switch" checked={compete} onChange={(event) => onMode(t, event.target.checked ? 'compete' : 'help')} />
-                      <span className="switch-track" aria-hidden="true" />
-                      <span>«{text.name}» في المنافسة</span>
-                    </label>
+                    <span className="p-steps" role="radiogroup" aria-label={`خطوة «${text.name}»`} data-mode-switch={t}>
+                      {stepsOf(t).map((mode) => (
+                        <label key={mode} className={`p-step ${info.mode === mode ? 'is-on' : ''}`} data-mode-choice={mode}>
+                          <input type="radio" name={`step-${t}`} checked={info.mode === mode} onChange={() => onMode(t, mode)} />
+                          <span>{STEP_NAME[mode]}</span>
+                        </label>
+                      ))}
+                    </span>
                   </span>
                 </li>
               )
             })}
           </ul>
-          <p className="p-meta">اليوم {ar(progress.day)}</p>
+          <p className="p-meta">خدمت {ar(progress.served)} زبون</p>
         </section>
 
         <section className="p-card">
@@ -175,14 +172,9 @@ export function ParentsScreen({
             <label key={t} className="switch" data-type-switch={t}>
               <input type="checkbox" role="switch" checked={!progress.disabled.includes(t)} onChange={(event) => onToggleType(t, event.target.checked)} />
               <span className="switch-track" aria-hidden="true" />
-              <span>طلبات «{TEACHES[t]?.name}»</span>
+              <span>طلبات «{TEACHES[t].name}»</span>
             </label>
           ))}
-          <label className="switch">
-            <input type="checkbox" role="switch" checked={progress.allOrders} onChange={(event) => onAllOrders(event.target.checked)} />
-            <span className="switch-track" aria-hidden="true" />
-            <span>كل الطلبات مفتوحة</span>
-          </label>
           <label className="switch">
             <input type="checkbox" role="switch" checked={progress.voice} onChange={(event) => onVoice(event.target.checked)} />
             <span className="switch-track" aria-hidden="true" />
@@ -190,7 +182,7 @@ export function ParentsScreen({
           </label>
           {confirming ? (
             <div className="confirm" role="alertdialog" aria-label="تأكيد التصفير">
-              <p>البقالة ترجع جديدة: النقاط والمستويات والطلبات تنمسح. متأكدين؟</p>
+              <p>البقالة ترجع جديدة: النقاط والخطوات والمستويات تنمسح. متأكدين؟</p>
               <div className="confirm-buttons">
                 <button
                   type="button"

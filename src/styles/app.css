@@ -1049,47 +1049,13 @@ p {
   background: linear-gradient(180deg, var(--sky-top), var(--sky-low));
   transition: background 1.2s ease;
 }
+/* The light of the shop no longer follows a day (§11.4): one bright morning sky. */
 .shop {
-  --sky-top: #ffd8c2;
-  --sky-low: #fff4d6;
-  --sun-y: 70%;
-  --sun-c: #ffd36b;
-  --town: #f2c7c9;
-}
-.shop[data-time='1'] {
   --sky-top: #9fd8ff;
   --sky-low: #e3f5ff;
   --sun-y: 30%;
   --sun-c: #ffe28a;
   --town: #c7d9ec;
-}
-.shop[data-time='2'] {
-  --sky-top: #8ccdf5;
-  --sky-low: #dff3ff;
-  --sun-y: 18%;
-  --sun-c: #fff0a8;
-  --town: #bed3ea;
-}
-.shop[data-time='3'] {
-  --sky-top: #ffc2a1;
-  --sky-low: #ffe9c7;
-  --sun-y: 42%;
-  --sun-c: #ffb14a;
-  --town: #e4b5b0;
-}
-.shop[data-time='4'] {
-  --sky-top: #ff9e8a;
-  --sky-low: #ffd7a8;
-  --sun-y: 66%;
-  --sun-c: #ff8a4a;
-  --town: #c99aa8;
-}
-.shop[data-time='5'] {
-  --sky-top: #5b5b9e;
-  --sky-low: #c79ac4;
-  --sun-y: 92%;
-  --sun-c: #ffd1e0;
-  --town: #4d4a7e;
 }
 .sun {
   position: absolute;
@@ -1973,7 +1939,7 @@ p {
   height: 1.4em;
 }
 
-.new-day {
+.gold-button {
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -1988,19 +1954,10 @@ p {
   font-weight: 800;
   box-shadow: 0 7px 0 #b07a12;
 }
-.new-day:active {
+.gold-button:active {
   transform: translateY(5px);
   box-shadow: 0 2px 0 #b07a12;
 }
-.sun-icon {
-  width: 48px;
-  height: 48px;
-  fill: #fff6b0;
-  stroke: #e58a21;
-  stroke-width: 4;
-  stroke-linecap: round;
-}
-
 /* ── The shop front (the opening) ─────────────────────────────────────── */
 .front {
   background: linear-gradient(180deg, #bfe6ff, #e9f7ff 60%);
@@ -2393,7 +2350,7 @@ p {
   background: #ffc94a;
   color: var(--ink);
 }
-/* The «٢٠٠» tag sits on the bag's plain top corner, not across its name. */
+/* The «١٠٠» tag sits on the bag's plain top corner, not across its name. */
 .pb-goal {
   top: -0.7em;
   right: 6%;
@@ -2498,266 +2455,7 @@ p {
   }
 }
 
-/* ══ §9: two bags, the delivery, one sticker for two parcels ═════════════ */
-.receipt.is-card {
-  font-size: clamp(24px, min(3.6vw, 4.6dvh), 40px);
-  transform: translateX(-50%) rotate(2deg);
-  background: #fffaf0;
-  border-style: dashed;
-}
-.order-bubble .receipt.bubble-card {
-  position: static;
-  transform: none;
-  font-size: calc(var(--cust-h) * 0.12);
-  box-shadow: none;
-  border: 0;
-  padding: 0;
-  animation: none;
-}
-
-/* The number house on the wall (over the window) during a mix. */
-.house-board {
-  position: absolute;
-  z-index: 1;
-  top: 6%;
-  right: 25%;
-  width: 30%;
-  max-height: 64%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  filter: drop-shadow(0 8px 10px rgba(58, 35, 24, 0.2));
-  animation: unroll 420ms ease-out;
-  transform-origin: 50% 0;
-}
-.hb-roof {
-  position: relative;
-  height: clamp(30px, 6dvh, 52px);
-  background: linear-gradient(180deg, #ff9fbd, #ff8fb1);
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  transition: background 600ms ease;
-}
-.house-board.is-full .hb-roof {
-  background: linear-gradient(180deg, #fff1b8, #ffc94a 60%, #e5a521);
-}
-.hb-sign {
-  position: absolute;
-  left: 50%;
-  bottom: 6%;
-  transform: translateX(-50%);
-  min-width: 1.6em;
-  padding: 0.1em 0.3em 0;
-  border-radius: 999px;
-  background: #fff;
-  border: 2px solid var(--ink);
-  font-weight: 800;
-  font-size: clamp(14px, 2.6dvh, 22px);
-  line-height: 1.2;
-  text-align: center;
-}
-.hb-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 4px;
-  background: #c98a55;
-  border: 3px solid var(--ink);
-  border-top: 0;
-  border-radius: 0 0 10px 10px;
-}
-.hb-row {
-  display: flex;
-  gap: 3px;
-}
-.hb-room {
-  flex: 1;
-  height: clamp(14px, min(3.2dvh, 2.4vw), 26px);
-  border-radius: 4px;
-  background: rgba(255, 246, 233, 0.45);
-  border: 2px dashed rgba(255, 246, 233, 0.8);
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  font-size: clamp(11px, min(2.4dvh, 1.8vw), 20px);
-  line-height: 1;
-  padding-top: 0.1em;
-  color: var(--ink);
-}
-.hb-row.is-found .hb-room {
-  border-style: solid;
-  background: #fff6e9;
-}
-.hb-row.is-found .hb-room.first {
-  background: #fff1b8;
-}
-.hb-row.is-found .hb-room.g-choc {
-  background: var(--choc);
-  color: #fff6e9;
-}
-.hb-row.is-found .hb-room.g-candy {
-  background: var(--berry);
-}
-.hb-row.is-found .hb-room.g-takis {
-  background: #6a3fa0;
-  color: #fff;
-}
-.hb-row.is-new .hb-room {
-  animation: said 600ms ease-out 2;
-}
-.house-board.point-empty .hb-row:not(.is-found) .hb-room {
-  animation: guide 900ms ease-in-out 3;
-  border-color: #ffc94a;
-}
-@media (orientation: portrait) {
-  .house-board {
-    right: 22%;
-    width: 36%;
-  }
-}
-
-/* «كيس واحد»: the box, the loose pieces (or the second bag), the paper bag, the sticker roll. */
-.sticker-zone {
-  display: flex;
-  align-items: flex-end;
-  gap: calc(var(--c) * 0.3);
-}
-.loose {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--c) * 0.12);
-  max-width: calc(var(--c) * 2.6);
-  min-height: var(--c);
-  align-items: flex-end;
-}
-.second-bag {
-  appearance: none;
-  padding: 0;
-  border: 0;
-  background: none;
-  width: calc(var(--c) * 1.6);
-}
-.paper-bag-spot {
-  width: calc(var(--c) * 1.9);
-  border-radius: 12px;
-}
-.paper-bag-spot.is-lit {
-  filter: drop-shadow(0 0 10px #ffc94a);
-}
-.paper-bag {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-.bag-art {
-  width: 100%;
-  height: auto;
-}
-.bag-peek {
-  position: absolute;
-  top: 6%;
-  left: 18%;
-  right: 18%;
-  display: flex;
-  justify-content: center;
-  gap: 2px;
-  pointer-events: none;
-}
-.bag-peek .candy-sm {
-  --c: calc(clamp(40px, min(5.8vw, 8.2dvh), 64px) * 0.4);
-}
-.bag-sticker,
-.bag-spot {
-  position: absolute;
-  left: 50%;
-  top: 56%;
-  transform: translate(-50%, -50%);
-  width: 46%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  padding-top: 0.1em;
-  font-weight: 800;
-  font-size: calc(var(--c) * 0.5);
-  line-height: 1;
-}
-.bag-spot {
-  border: 3px dashed rgba(58, 35, 24, 0.4);
-}
-.bag-sticker {
-  background: #fff;
-  border: 3px solid #ffc94a;
-  box-shadow: 0 2px 0 #c99024;
-  color: var(--ink);
-}
-.bag-sticker.slap {
-  animation: slap 260ms cubic-bezier(0.3, 1.6, 0.5, 1);
-}
-@keyframes slap {
-  from {
-    transform: translate(-50%, -50%) scale(1.8) rotate(-20deg);
-    opacity: 0;
-  }
-}
-.sticker-roll {
-  position: absolute;
-  z-index: 4;
-  left: calc(10px + var(--safe-l));
-  right: calc(10px + var(--safe-r));
-  bottom: calc(6px + var(--safe-b));
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  gap: 4px;
-  padding: 6px 8px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #fffaf0, #ffe9c7);
-  border: 3px solid #c98a55;
-}
-.sticker {
-  appearance: none;
-  height: max(48px, min(7dvh, 64px));
-  padding: 0.1em 0 0;
-  border-radius: 999px;
-  border: 3px solid #ffc94a;
-  background: #fff;
-  color: var(--ink);
-  font-weight: 800;
-  font-size: clamp(18px, min(3vw, 3.4dvh), 30px);
-  line-height: 1;
-  box-shadow: 0 3px 0 #c99024;
-}
-.sticker.is-peeled {
-  opacity: 0.35;
-  animation: flutter 700ms ease-in;
-}
-@keyframes flutter {
-  30% {
-    transform: translateY(-8px) rotate(-12deg);
-  }
-  100% {
-    transform: translateY(0) rotate(0);
-  }
-}
-.sticker.is-used {
-  background: #fff1b8;
-}
-.wiggle {
-  animation: jiggle 600ms ease infinite;
-}
-.shop:has(.sticker-roll) .counter-items {
-  bottom: calc(max(48px, min(7dvh, 64px)) + 26px + var(--safe-b));
-}
-@media (max-width: 600px) {
-  .sticker-roll {
-    gap: 2px;
-    padding: 4px;
-  }
-  .sticker {
-    border-width: 2px;
-    font-size: 17px;
-  }
-}
-
+/* ══ §9: the delivery ══════════════════════════════════════════════════ */
 /* «توصيل»: the number street. */
 .street {
   position: absolute;
@@ -2985,80 +2683,6 @@ p {
 }
 
 /* ══ §10: one good per sum, training and competition ═════════════════════ */
-/* «كيسين»: two open bags on the counter, right and left; the one she tapped last is lifted. */
-.two-bags {
-  --cup: calc(var(--c) * 0.9);
-  position: relative;
-  display: flex;
-  gap: calc(var(--c) * 0.4);
-  align-items: flex-end;
-}
-.open-bag {
-  position: relative;
-  padding: calc(var(--c) * 0.5) calc(var(--c) * 0.22) calc(var(--c) * 0.3);
-  border-radius: 10px 10px 18px 18px;
-  background: linear-gradient(180deg, #f1d3ab, #e2b682);
-  border: 3px solid #3a2318;
-  box-shadow: 0 6px 12px rgba(58, 35, 24, 0.2);
-  transition: transform 160ms ease, box-shadow 160ms ease;
-}
-.open-bag::before {
-  /* The bag's open mouth. */
-  content: '';
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: calc(var(--c) * 0.12);
-  height: calc(var(--c) * 0.24);
-  border-radius: 50%;
-  background: #b98657;
-  border: 2px solid #3a2318;
-  pointer-events: none;
-}
-.open-bag.is-picked {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 0 4px #fff,
-    0 0 0 8px #ffc94a,
-    0 10px 16px rgba(58, 35, 24, 0.25);
-}
-.bag-body {
-  appearance: none;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  border-radius: inherit;
-}
-.bag-cups {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, var(--cup));
-  gap: calc(var(--c) * 0.08);
-  pointer-events: none;
-}
-.bag-cups .piece {
-  pointer-events: auto;
-}
-.bag-cups .candy {
-  --c: calc(var(--cup) * 0.86);
-}
-.bags-count {
-  top: auto;
-  bottom: calc(var(--c) * -0.5);
-  z-index: 2;
-}
-.order-bags {
-  display: inline-flex;
-  gap: 2px;
-}
-.order-bags .paper-bag {
-  width: calc(var(--cust-h) * 0.13);
-}
-
 /* Competition: the stake, two gold coins waiting by the bell. */
 .stake {
   display: flex;
@@ -3117,7 +2741,7 @@ p {
   transform-box: fill-box;
 }
 
-/* The board: lit when the competition starts; two coins drop out of it on a −2. */
+/* The board: lit when the competition starts. */
 .prize-board.is-lit {
   animation: board-lit 600ms ease-in-out 4;
 }
@@ -3129,69 +2753,201 @@ p {
       0 0 26px 10px rgba(255, 201, 74, 0.9);
   }
 }
-.board-drop {
-  position: absolute;
-  left: 50%;
-  top: 70%;
-  display: flex;
-  gap: 6px;
-  pointer-events: none;
-}
-.drop-coin {
-  width: 30px;
-  animation: coin-drop 1100ms ease-in forwards;
-}
-.drop-coin + .drop-coin {
-  animation-delay: 120ms;
-}
-@keyframes coin-drop {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(110px) rotate(70deg);
-    opacity: 0;
-  }
-}
-
-/* At closing: today's coins pulse (up), or show faded (down). */
-.pb-today {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-}
-.pb-today-coin {
-  width: calc(var(--pb) * 0.06);
-  animation: today-pulse 900ms ease-in-out infinite;
-  animation-delay: calc(var(--i) * 60ms);
-}
-.pb-today.is-down .pb-today-coin {
-  opacity: 0.35;
-  filter: grayscale(0.7);
-  animation: none;
-}
-@keyframes today-pulse {
-  50% {
-    transform: scale(1.25);
-    filter: drop-shadow(0 0 6px rgba(255, 201, 74, 0.9));
-  }
-}
 .p-rule {
   margin: 0 0 12px;
   padding-inline-start: 1.2em;
   line-height: 1.7;
 }
-.p-mode {
-  margin-top: 6px;
-}
 @media (prefers-reduced-motion: reduce) {
   .stake,
   .stake-coin,
-  .drop-coin,
-  .pb-today-coin,
   .prize-board.is-lit {
+    animation: none;
+  }
+}
+
+/* ══ §11: count on, and nothing else ════════════════════════════════════ */
+/* While she solves, everything but the task fades and holds still (§11.6). A handful of
+   containers carry the opacity and the filter; nothing inside them is transitioned. */
+.shop .backroom,
+.shop .customer-button,
+.shop .order-bubble,
+.shop .helper,
+.shop .source,
+.shop .bell-spot {
+  transition:
+    opacity 400ms ease,
+    filter 400ms ease;
+}
+.shop.is-solving .backroom,
+.shop.is-solving .customer-button,
+.shop.is-solving .helper,
+.shop.is-solving .source:not(.is-ordered) {
+  opacity: 0.35;
+  filter: saturate(0.3);
+}
+/* Idle motion holds still on her turn (a customer's reaction during a reveal still plays; the
+   bubble's entrance is never frozen half-way). */
+.shop.is-solving.phase-packing :is(.backroom, .customer-button, .helper, .source:not(.is-ordered)),
+.shop.is-solving.phase-packing :is(.backroom, .customer-button, .helper, .source:not(.is-ordered)) * {
+  animation-play-state: paused;
+}
+/* Whatever a guide pulse points at is never faded. */
+.shop.is-solving .guide {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Tapped, the box stays closed and its number swells as it is said. */
+.gift-ready.is-swell .gift-label {
+  animation: swell 900ms cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+@keyframes swell {
+  35% {
+    transform: scale(1.45);
+    box-shadow:
+      0 0 0 6px #fff,
+      0 0 22px 8px rgba(255, 201, 74, 0.95);
+  }
+}
+/* A wrong bell, shown by the pieces (§12.2): the box's group under its one number. */
+.group-num {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--c) * -0.42);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: calc(var(--c) * 1.1);
+  padding: 0.1em 0.3em 0;
+  border-radius: 999px;
+  background: #fff;
+  border: 4px solid #ffc94a;
+  box-shadow: 0 0 0 2px #c98a55;
+  color: var(--ink);
+  font-size: calc(var(--c) * 0.82);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  transition: transform 200ms ease;
+  pointer-events: none;
+}
+.group-num.is-said,
+.is-said > .group-num {
+  transform: translateX(-50%) scale(1.2);
+}
+.piece-tag.is-said {
+  background: var(--berry-deep);
+  transform: translateX(-50%) scale(1.15);
+}
+/* The ready box during a check: its pieces framed under their one number. */
+.ready-box {
+  position: relative;
+}
+.ready-box.is-framed .gift-candies {
+  outline: 3px dashed #e5a521;
+  outline-offset: 4px;
+  border-radius: 12px;
+  background: rgba(255, 201, 74, 0.22);
+}
+.ready-box .group-num {
+  top: calc(var(--c) * -0.5);
+}
+
+/* ══ §12: back to the tray ═══════════════════════════════════════════════ */
+/* The ready box's tray: big cups, four to a row, filling from the box outward (§12.1). */
+.ready-zone {
+  --cup: calc(var(--c) * 1.3);
+  align-items: center;
+}
+.ready-zone .side-tray {
+  grid-template-columns: repeat(var(--cols), var(--cup));
+  gap: calc(var(--cup) * 0.14);
+  padding: calc(var(--cup) * 0.42) calc(var(--cup) * 0.16) calc(var(--cup) * 0.18);
+  border-radius: 18px;
+}
+.ready-zone .side-slot {
+  --c: var(--cup);
+  width: var(--cup);
+  height: var(--cup);
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+/* iPad upright: the counter is tall, so the box and its tray take the whole width on top, and the
+   bell and the goods wait underneath (as on a phone). */
+@media (orientation: portrait) and (min-width: 601px) {
+  .ready-zone {
+    --cup: calc(var(--c) * 1.6);
+  }
+  .shop[data-order='C'] .counter-items {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 'pack pack' 'bell jars';
+    row-gap: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .ready-zone {
+    --cup: calc(var(--c) * 1.2);
+  }
+}
+/* After a wrong bell: a ghost cup for each missing piece, with its number. */
+.side-slot.is-ghost {
+  background: none;
+  border: 3px dashed #7cb518;
+  border-radius: 50%;
+}
+.ghost-candy {
+  --c: calc(var(--cup) * 0.78);
+  opacity: 0.25;
+  filter: grayscale(0.5);
+  box-shadow: none;
+}
+/* A piece past the order: faded, a grey ring, a little shake as it is marked. */
+.piece.is-extra {
+  opacity: 0.38;
+  filter: saturate(0.15);
+  animation: jiggle 450ms ease 1;
+}
+.piece.is-extra .candy {
+  box-shadow:
+    0 0 0 3px #fff,
+    0 0 0 7px #cfc6b8;
+}
+
+/* The parents choose the step of help. */
+.p-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.p-step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 14px 0;
+  border-radius: 999px;
+  border: 2px solid #c98a55;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.p-step input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.p-step.is-on {
+  background: var(--mint);
+  border-color: var(--mint-deep);
+}
+.p-step:has(input:focus-visible) {
+  outline: 3px solid var(--berry-deep);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gift-ready.is-swell .gift-label {
     animation: none;
   }
 }

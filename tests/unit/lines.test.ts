@@ -35,7 +35,7 @@ describe('the lines of version 2', () => {
 
   // The brief is kept on the owner's machine, outside the repository: where it is missing (the
   // deploy), this comparison is skipped; every other rule about the lines still runs.
-  it.skipIf(!fs.existsSync('DESIGN.md'))('has every line of the brief word for word, with the changes of §8.6, §9 and §10.4', () => {
+  it.skipIf(!fs.existsSync('DESIGN.md'))('has every line of the brief word for word, with the changes of §8.6, §9, §10.4, §11.7 and §12.3', () => {
     const brief = fs.readFileSync('DESIGN.md', 'utf8')
     const v2 = brief.slice(brief.indexOf('| id | text |'), brief.indexOf('## 5.'))
     const v3 = brief.slice(brief.indexOf('### 8.6'), brief.indexOf('### 8.7')) + brief.slice(brief.indexOf('## 9.'))
@@ -45,10 +45,16 @@ describe('the lines of version 2', () => {
       // «c/two-bags (suffix, replaces c/mix)»: the id is the first word; later sections win.
       changed.set(id!.replace(/\s*\(.*\)$/, ''), text!)
     }
-    // The «removed» rows (§8.6 and §10.4).
+    // The «removed» rows (§8.6, §10.4, §11.7 and §12.3).
     const removedRows = v3.split('\n').filter((r) => /^\| removed \|/.test(r))
+    expect(removedRows).toHaveLength(4)
     const removed = removedRows.flatMap((r) => [...r.matchAll(/[cg]\/[a-z0-9-]+/g)].map((m) => m[0]))
     for (const id of ['c/mix', 'g/mix', 'g/mix-new']) expect(removed).toContain(id)
+    // §11: no days, no «كيسين», no sentence on a wrong answer, no points taken away, the goal of 100.
+    const third = ['g/sticker', 'g/bigger-first', 'g/closed', 'g/new-day', 'g/points-no', 'g/day-down', 'g/goal-150', 'g/goal-200', 'g/two-bags', 'g/two-bags-new', 'g/house-done', 'c/two-bags', 'c/wait-1', 'c/wait-2', 'c/wait-3', 'c/too-few', 'c/too-many']
+    for (const id of third) expect(removed).toContain(id)
+    // §12: the count-on order with its bag and stickers is gone.
+    for (const id of ['c/may-i', 'g/hold', 'g/pick']) expect(removed).toContain(id)
     for (const id of removed) changed.delete(id)
     for (const [id, text] of changed) expect(LINES[id as LineId], id).toBe(text)
     for (const gone of ['g/decorate', 'g/need-more', ...removed]) expect(gone in LINES, gone).toBe(false)
@@ -113,8 +119,8 @@ describe('the lines of version 2', () => {
   it('uses every line somewhere in the game', () => {
     for (const id of Object.keys(LINES)) {
       const family = id.replace(/-\d+$/, '')
-      const dealt = /-\d+$/.test(id) && ['c/wait', 'c/not-my-house'].includes(family) && /WAIT_IDS|NOT_MY_HOUSE_IDS/.test(source)
-      const counted = /^g\/(near-\d|goal-(50|100|150))$/.test(id) && source.includes('`g/near-${') && source.includes('`g/goal-${')
+      const dealt = /-\d+$/.test(id) && family === 'c/not-my-house' && source.includes('NOT_MY_HOUSE_IDS')
+      const counted = /^g\/(near-\d|goal-(25|50|75))$/.test(id) && source.includes('`g/near-${') && source.includes('`g/goal-${')
       expect(source.includes(`'${id}'`) || dealt || counted, id).toBe(true)
     }
   })

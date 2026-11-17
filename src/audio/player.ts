@@ -2,7 +2,7 @@ import manifest from '../../public/audio/manifest.json'
 import { audioCues } from '../data/lines'
 import { audioContext, onAudioReset } from './context'
 
-const AUDIO_REVISION = 'baqala-v1'
+const AUDIO_REVISION = 'baqala-v2'
 // A recorded clip that fails to download (a weak connection) is tried again before it is skipped.
 const LOAD_ATTEMPTS = 3
 // A clip that could not be downloaded is left alone for a while, and a cue never waits longer than

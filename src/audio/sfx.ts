@@ -55,12 +55,6 @@ export const sfx = {
       { freq: 1975 + index * 40, at: 0, length: 0.09, gain: 0.06, type: 'square' },
       { freq: 2637 + index * 40, at: 0.06, length: 0.22, gain: 0.05 },
     ]),
-  /** Two coins leaving the board: soft and low, falling (never a buzzer). */
-  lose: () =>
-    play([
-      { freq: 392, at: 0, length: 0.32, type: 'sine', gain: 0.06, slide: 0.7 },
-      { freq: 330, at: 0.16, length: 0.4, type: 'sine', gain: 0.05, slide: 0.7 },
-    ]),
   /** Something new appears in the shop. */
   sparkle: () =>
     play([

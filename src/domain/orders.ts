@@ -1,22 +1,14 @@
-// Orders, hidden levels, the plan of a day and what arrives when (DESIGN.md §3.2-3.3).
+// Orders, hidden levels and steps of help, and who comes in next (DESIGN.md §3.2, as changed by §11 and §12).
 // Every range here is checked over many seeds by tests/unit/orders.test.ts.
-import { int, pick, shuffle, type Rng } from './random'
-
-export type OrderType = 'A' | 'B' | 'C' | 'D' | 'E'
-export type Level = 1 | 2 | 3
+import { int, pick, type Rng } from './random'
 
 /**
- * The order types in the order they arrive at her shop (§9): day 1 «طلب», day 2 the ready box,
- * then «كيسين», «توصيل» and «كيس واحد», one per morning.
+ * The order types left after §11 and §12 (B and E are gone). C, the ready box with the tray, is the
+ * stream of customers (§12.1); A and D stay in the game, off unless a parent switches them on.
  */
-export const ARRIVAL_ORDER: readonly OrderType[] = ['A', 'C', 'B', 'D', 'E']
-export const ORDER_TYPES: readonly OrderType[] = ARRIVAL_ORDER
-
-export const DAY_CUSTOMERS = 5
-/** A new thing arrives after a day with at least this many first-bell deliveries... */
-export const ARRIVAL_FIRST_BELLS = 3
-/** ...or after this many days, whatever happened. */
-export const ARRIVAL_DAYS = 2
+export type OrderType = 'A' | 'C' | 'D'
+export type Level = 1 | 2 | 3
+export const ORDER_TYPES: readonly OrderType[] = ['C', 'A', 'D']
 
 export type CustomerId = 'rabbit' | 'cat' | 'duck' | 'hedgehog' | 'panda' | 'frog' | 'fox' | 'penguin'
 
@@ -60,25 +52,23 @@ export interface Order {
   level: Level
   /** What the customer wants in all. */
   n: number
-  /**
-   * A: n. B: 0 (any split). C: the pieces already in the ready box. D: the house Dabdoob starts at.
-   * E: the first number on the order card.
-   */
+  /** A: n. C: the pieces in the ready box (the bigger number). D: the house Dabdoob starts at. */
   a: number
-  /** A, B: 0. C: how many more. D: how many houses to ride. E: the second number on the card. */
+  /** A: 0. C: how many more. D: how many houses to ride. */
   b: number
   customer: CustomerId
   /** The one good of the order (§10.1: an order never adds or mixes two goods). */
   good: Good
-  /** E level 3: the small number comes first on the card («٢ + ٦»). */
-  smallFirst?: boolean
 }
 
 const fact = (a: number, b: number) => `${a}+${b}`
 
-/** The (a, b) pairs a ready-box order takes at a level. */
+/**
+ * The (a, b) pairs of the ready box (C): a closed box plus a few more. The box always holds the
+ * bigger number, so she counts on from the big one.
+ */
 export function readyBoxFits(level: Level, a: number, b: number): boolean {
-  if (a + b > 10) return false
+  if (a + b > 10 || a < b) return false
   if (level === 1) return a >= 2 && a <= 5 && b >= 1 && b <= 2
   if (level === 2) return a >= 3 && a <= 7 && b >= 1 && b <= 3
   return a >= 4 && a <= 8 && b >= 1 && b <= 4
@@ -90,20 +80,6 @@ export function rideFits(level: Level, a: number, b: number): boolean {
   return level === 1 ? b >= 1 && b <= 3 && a + b <= 7 : b >= 1 && b <= 4
 }
 
-/** One sticker for two parcels (E): sums ≤ 5, 4-8, 6-10 with the smaller ≤ 4 (as written). */
-export function stickerFits(level: Level, a: number, b: number): boolean {
-  if (a < 1 || b < 1) return false
-  const sum = a + b
-  if (level === 1) return sum <= 5
-  if (level === 2) return sum >= 4 && sum <= 8
-  return sum >= 6 && sum <= 10 && Math.min(a, b) <= 4
-}
-
-/** Two bags (B): N 4 or 5, then 6-8, then 9 or 10. */
-export function twoBagsRange(level: Level): readonly number[] {
-  return level === 1 ? [4, 5] : level === 2 ? [6, 7, 8] : [9, 10]
-}
-
 export function packRange(level: Level): [number, number] {
   return level === 1 ? [1, 5] : level === 2 ? [3, 10] : [5, 10]
 }
@@ -113,17 +89,15 @@ export function makeOrder(
   level: Level,
   rng: Rng,
   customer: CustomerId,
-  options: { missed?: Record<string, number>; previous?: Order; smallFirst?: boolean } = {},
+  options: { missed?: Record<string, number>; previous?: Order } = {},
 ): Order {
   const previous = options.previous
-  // The goods vary within a day: never the same good twice in a row.
+  // The goods vary: never the same good twice in a row.
   const goodFrom = (choices: readonly Good[]) => pick(rng, choices.filter((g) => g !== previous?.good).length ? choices.filter((g) => g !== previous?.good) : choices)
-  if (type === 'C' || type === 'D' || type === 'E') {
-    const fits = type === 'C' ? readyBoxFits : type === 'D' ? rideFits : stickerFits
-    let pairs: [number, number][] = []
+  if (type !== 'A') {
+    const fits = type === 'D' ? rideFits : readyBoxFits
+    const pairs: [number, number][] = []
     for (let a = 0; a <= 10; a += 1) for (let b = 0; b <= 10; b += 1) if (fits(level, a, b)) pairs.push([a, b])
-    // E level 3: most cards put the bigger number first; one or two a day the small one.
-    if (type === 'E' && level === 3) pairs = pairs.filter(([a, b]) => (options.smallFirst ? a < b : a >= b))
     // Her missed facts come back now and then.
     const missed = Object.entries(options.missed ?? {})
       .filter(([, count]) => count > 0)
@@ -131,13 +105,7 @@ export function makeOrder(
       .filter(([a, b]) => pairs.some(([x, y]) => x === a && y === b))
     let [a, b] = missed.length > 0 && rng() < 0.5 ? pick(rng, missed) : pick(rng, pairs)
     if (previous?.type === type && previous.a === a && previous.b === b && pairs.length > 1) [a, b] = pick(rng, pairs.filter(([x, y]) => x !== a || y !== b))
-    return { type, level, n: a + b, a, b, customer, good: goodFrom(GOODS), ...(type === 'E' && level === 3 ? { smallFirst: a < b } : {}) }
-  }
-  if (type === 'B') {
-    let n = pick(rng, twoBagsRange(level))
-    const range = twoBagsRange(level)
-    if (previous?.type === 'B' && previous.n === n && range.length > 1) n = pick(rng, range.filter((x) => x !== n))
-    return { type, level, n, a: 0, b: 0, customer, good: goodFrom(GOODS) }
+    return { type, level, n: a + b, a, b, customer, good: goodFrom(GOODS) }
   }
   // A: pack an order of n.
   const [min, max] = packRange(level)
@@ -148,148 +116,110 @@ export function makeOrder(
 }
 
 export function factOf(order: Order): string | null {
-  return order.type === 'C' || order.type === 'D' || order.type === 'E' ? fact(order.a, order.b) : null
+  return order.type === 'A' ? null : fact(order.a, order.b)
 }
 
-// ── Hidden levels and the two modes (§10.2) ──────────────────────────────
-/** `help`: training, all the counting help, no points. `compete`: no counting help, ±2. */
-export type Mode = 'help' | 'compete'
+// ── Hidden levels and the steps of help (§10.2, §11.2) ───────────────────
+/**
+ * `help`: training, all the counting help, no points. `bridge` (C only): the voice says the box's
+ * number and she counts on by herself, no points. `compete`: no counting help, +2 right first time.
+ */
+export type Mode = 'help' | 'bridge' | 'compete'
+
+/** The steps of each type, from the most help to none: the ready box has the bridge between the two. */
+export function stepsOf(type: OrderType): readonly Mode[] {
+  return type === 'C' ? ['help', 'bridge', 'compete'] : ['help', 'compete']
+}
 
 export interface TypeProgress {
   level: Level
-  /** Right at the first bell, for her latest orders of this type (newest last, at most 5). */
+  /** Right at the first try, for her latest orders that count for the level (newest last, at most 5). */
   history: boolean[]
   served: number
   mode: Mode
-  /** The same, counted for the mode; it starts empty after each move between the modes. */
+  /** Right at the first try in this step; it starts empty after each move between the steps. */
   modeHistory: boolean[]
 }
 
 export const blankType = (): TypeProgress => ({ level: 1, history: [], served: 0, mode: 'help', modeHistory: [] })
 
 /**
- * The number range: up when 4 of her last 5 were right at the first bell, down when 1 or fewer
- * were (in both modes, never announced). The mode: training → competition when 4 of her last 5
- * in training were right; competition → training when 1 or fewer of her last 5 were.
+ * After one order of `type`. The number range: up when 4 of her last 5 were right at the first try,
+ * down when 1 or fewer were; for C only in competition (the method is learnt on easy numbers). The
+ * step: up after 4 of her last 5 right in this step, down after two wrong first tries in a row.
  */
-export function afterOrder(state: TypeProgress, firstBell: boolean): TypeProgress {
-  const history = [...state.history, firstBell].slice(-5)
-  const right = history.filter(Boolean).length
+export function afterOrder(state: TypeProgress, firstBell: boolean, type: OrderType): TypeProgress {
   let level = state.level
-  let next = history
-  if (right >= 4 && level < 3) [level, next] = [(level + 1) as Level, []]
-  else if (history.length === 5 && right <= 1 && level > 1) [level, next] = [(level - 1) as Level, []]
-  const modeHistory = [...state.modeHistory, firstBell].slice(-5)
-  const modeRight = modeHistory.filter(Boolean).length
-  let mode = state.mode
-  let modeNext = modeHistory
-  if (mode === 'help' && modeRight >= 4) [mode, modeNext] = ['compete', []]
-  else if (mode === 'compete' && modeHistory.length === 5 && modeRight <= 1) [mode, modeNext] = ['help', []]
-  return { level, history: next, served: state.served + 1, mode, modeHistory: modeNext }
+  let history = state.history
+  if (type !== 'C' || state.mode === 'compete') {
+    history = [...state.history, firstBell].slice(-5)
+    const right = history.filter(Boolean).length
+    if (right >= 4 && level < 3) [level, history] = [(level + 1) as Level, []]
+    else if (history.length === 5 && right <= 1 && level > 1) [level, history] = [(level - 1) as Level, []]
+  }
+  const steps = stepsOf(type)
+  const at = Math.max(0, steps.indexOf(state.mode))
+  let modeHistory = [...state.modeHistory, firstBell].slice(-5)
+  let mode = steps[at]!
+  if (modeHistory.filter(Boolean).length >= 4 && at < steps.length - 1) [mode, modeHistory] = [steps[at + 1]!, []]
+  else if (modeHistory.length >= 2 && !modeHistory.at(-1) && !modeHistory.at(-2) && at > 0) [mode, modeHistory] = [steps[at - 1]!, []]
+  return { level, history, served: state.served + 1, mode, modeHistory }
 }
 
-// ── The day ──────────────────────────────────────────────────────────────
-export interface DayInput {
-  /** Types that have arrived and are switched on. */
+// ── Who comes next (§11.4: no days, one customer after another) ───────────
+export interface NextTypeInput {
+  /** The types open now (all minus the ones the parents switched off). */
   open: readonly OrderType[]
-  /** A type that arrived this morning: it gets the first order and every other one. */
-  arrivedToday: OrderType | null
   levels: Record<OrderType, Level>
   missedCount: number
+  /** The latest types served, newest last. */
+  recent: readonly OrderType[]
 }
 
 /**
- * Five orders. On the morning something new arrives it comes first, then every other order.
- * Once everything has arrived: at least two ready boxes, the rest leaning toward her weaker types.
+ * The next order's type. With several open: weaker types (lower level, or with missed facts) more
+ * often, never three of a kind in a row, a delivery at most once in five.
  */
-export function planDay(input: DayInput, rng: Rng): OrderType[] {
-  const open = input.open.length > 0 ? [...input.open] : ['A' as OrderType]
-  if (open.length === 1) return Array.from({ length: DAY_CUSTOMERS }, () => open[0]!)
-  const fresh = input.arrivedToday && open.includes(input.arrivedToday) ? input.arrivedToday : null
-  if (fresh) {
-    // The delivery takes the scene to the street: twice on its first morning, not three times.
-    const others = open.filter((t) => t !== fresh && t !== 'D')
-    const slots = fresh === 'D' ? [0, 3] : [0, 2, 4]
-    const pool = others.length ? others : open.filter((t) => t !== fresh)
-    return Array.from({ length: DAY_CUSTOMERS }, (_, i) => (slots.includes(i) ? fresh : pick(rng, pool.length ? pool : [fresh])))
+export function nextType(input: NextTypeInput, rng: Rng): OrderType {
+  const open = input.open.length > 0 ? input.open : (['C'] as const)
+  if (open.length === 1) return open[0]!
+  const last = input.recent.slice(-4)
+  const three = last.length >= 2 && last.at(-1) === last.at(-2) ? last.at(-1) : null
+  let options = open.filter((t) => t !== three && !(t === 'D' && last.includes('D')))
+  if (options.length === 0) options = open.filter((t) => t !== 'D')
+  if (options.length === 0) options = [...open]
+  const facts = (t: OrderType) => t !== 'A' && input.missedCount > 0
+  const weights = options.map((t) => 4 - input.levels[t] + (facts(t) ? 1 : 0))
+  let roll = rng() * weights.reduce((sum, w) => sum + w, 0)
+  for (let i = 0; i < options.length; i += 1) {
+    roll -= weights[i]!
+    if (roll < 0) return options[i]!
   }
-  const plan: OrderType[] = []
-  if (open.includes('C')) plan.push('C', 'C')
-  // Weaker types (lower level) are chosen more often; at most one delivery a day.
-  const facts = (t: OrderType) => (t === 'C' || t === 'D' || t === 'E') && input.missedCount > 0
-  const weights = open.map((t) => 4 - input.levels[t] + (facts(t) ? 1 : 0))
-  while (plan.length < DAY_CUSTOMERS) {
-    if (plan.includes('D')) {
-      const d = open.indexOf('D')
-      if (d >= 0) weights[d] = 0
-      if (weights.every((w) => w === 0)) break
-    }
-    let roll = rng() * weights.reduce((sum, w) => sum + w, 0)
-    let index = 0
-    while (roll >= weights[index]!) {
-      roll -= weights[index]!
-      index += 1
-    }
-    plan.push(open[index]!)
-  }
-  while (plan.length < DAY_CUSTOMERS) plan.push(open.find((t) => t !== 'D') ?? open[0]!)
-  // At most four of a kind, so the day stays mixed...
-  for (const t of open) {
-    while (plan.filter((x) => x === t).length > DAY_CUSTOMERS - 1) plan[plan.lastIndexOf(t)] = open.find((o) => o !== t)!
-  }
-  // ...and never three of a kind in a row.
-  const left = shuffle(rng, plan)
-  const out: OrderType[] = []
-  while (left.length > 0) {
-    const blocked = out.length >= 2 && out.at(-1) === out.at(-2) ? out.at(-1) : null
-    const counts = (t: OrderType) => left.filter((x) => x === t).length
-    const options = [...new Set(left)].filter((t) => t !== blocked).sort((x, y) => counts(y) - counts(x))
-    const choice = options[0] ?? left[0]!
-    out.push(choice)
-    left.splice(left.indexOf(choice), 1)
-  }
-  return out
+  return options.at(-1)!
 }
 
-/**
- * The customers of a day, from those who know her shop: never the same one twice in a row; a
- * newcomer comes in second that day.
- */
-export function dayCustomers(rng: Rng, count = DAY_CUSTOMERS, served = 999, newcomer: CustomerId | null = null): CustomerId[] {
+/** The next customer: a newcomer first (the very next customer after they join), never the same one twice in a row. */
+export function nextCustomer(rng: Rng, served: number, previous: CustomerId | null, newcomer: CustomerId | null = null): CustomerId {
   const known = knownCustomers(served)
-  const out: CustomerId[] = []
-  for (let i = 0; i < count; i += 1) {
-    if (i === 1 && newcomer && known.includes(newcomer) && out.at(-1) !== newcomer) {
-      out.push(newcomer)
-      continue
-    }
-    const choices = known.filter((id) => id !== out.at(-1))
-    out.push(pick(rng, choices.length ? choices : known))
-  }
-  return out
+  if (newcomer && known.includes(newcomer) && newcomer !== previous) return newcomer
+  const choices = known.filter((id) => id !== previous)
+  return pick(rng, choices.length ? choices : known)
 }
 
-/** The first customer who joined between two served counts, if any. */
-export function newcomerBetween(before: number, now: number): CustomerId | null {
-  return CUSTOMERS.find((c) => c.after > before && c.after <= now)?.id ?? null
-}
-
-/** The next type to arrive, if any. */
-export function nextArrival(arrived: readonly OrderType[]): OrderType | null {
-  return ARRIVAL_ORDER.find((t) => !arrived.includes(t)) ?? null
-}
-
-/** After a day: does something new arrive next morning? */
-export function arrivalDue(firstBells: number, daysSinceArrival: number): boolean {
-  return firstBells >= ARRIVAL_FIRST_BELLS || daysSinceArrival >= ARRIVAL_DAYS
+/** The first customer who knows the shop but has not been met yet. */
+export function newcomerOf(served: number, met: readonly CustomerId[]): CustomerId | null {
+  return knownCustomers(served).find((id) => !met.includes(id)) ?? null
 }
 
 /**
- * Her name in the customers' mouths (§8.5): the first customer greets her by name about every
- * second day, the last one thanks her by name about one day in three; never more than two a day.
+ * Her name in the customers' mouths (§11.4), by the orders served before this one: the greeting
+ * once in eight customers, the thanks once in twelve, never on the same customer.
  */
-export function namedToday(day: number): { hi: boolean; thanks: boolean } {
-  return { hi: day % 2 === 1, thanks: day % 3 === 2 }
+export function namedHi(served: number): boolean {
+  return served % 8 === 0
+}
+export function namedThanks(served: number): boolean {
+  return served % 12 === 7
 }
 
 export function customerRate(id: CustomerId): number {

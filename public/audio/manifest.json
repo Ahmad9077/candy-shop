@@ -49,12 +49,6 @@
       "durationMs": 1040,
       "bytes": 8820
     },
-    "ar/c/may-i": {
-      "text": "ممكن",
-      "hash": "7b4e174674022744",
-      "durationMs": 751,
-      "bytes": 6521
-    },
     "ar/c/not-my-house-1": {
       "text": "مو بيتي!",
       "hash": "f1e751d7de8a3331",
@@ -127,42 +121,6 @@
       "durationMs": 1416,
       "bytes": 11954
     },
-    "ar/c/too-few": {
-      "text": "ناقص شوي.",
-      "hash": "6fb7a1a39bbc8325",
-      "durationMs": 1133,
-      "bytes": 9656
-    },
-    "ar/c/too-many": {
-      "text": "هذا زايد.",
-      "hash": "743451c03df86a02",
-      "durationMs": 1281,
-      "bytes": 10909
-    },
-    "ar/c/two-bags": {
-      "text": "في كيسين",
-      "hash": "a5e0f8d278107de3",
-      "durationMs": 1111,
-      "bytes": 9447
-    },
-    "ar/c/wait-1": {
-      "text": "لحظة، خل نعد.",
-      "hash": "491b9107165b2acd",
-      "durationMs": 1658,
-      "bytes": 13835
-    },
-    "ar/c/wait-2": {
-      "text": "خل نشوف كم فيها.",
-      "hash": "5d477d6560d52dfa",
-      "durationMs": 1520,
-      "bytes": 12790
-    },
-    "ar/c/wait-3": {
-      "text": "نعدهم؟",
-      "hash": "cbd2af1f29363e58",
-      "durationMs": 989,
-      "bytes": 8402
-    },
     "ar/c/want": {
       "text": "أبي",
       "hash": "99b01874ff137e86",
@@ -175,23 +133,17 @@
       "durationMs": 4037,
       "bytes": 32852
     },
-    "ar/g/bigger-first": {
-      "text": "نبدأ بالعدد الأكبر.",
-      "hash": "a4ea43eab0517de7",
-      "durationMs": 1729,
-      "bytes": 14462
-    },
-    "ar/g/closed": {
-      "text": "البقالة سكرت. نعد نقاط اليوم!",
-      "hash": "b0a289eb0a2b5145",
-      "durationMs": 3188,
-      "bytes": 26165
+    "ar/g/bridge": {
+      "text": "الحين دبدوب يقول عدد العلبة بس، وإحنا نكمل العد.",
+      "hash": "fd5c56ede47492c6",
+      "durationMs": 4949,
+      "bytes": 40167
     },
     "ar/g/compete": {
-      "text": "بدت المنافسة! الحين نعد بروحنا. الطلب الصح بنقطتين، والغلط ينقص نقطتين.",
-      "hash": "3e54fcb9013cd4f3",
-      "durationMs": 7565,
-      "bytes": 61065
+      "text": "بدت المنافسة! الحين نعد بروحنا، وكل طلب مضبوط بنقطتين.",
+      "hash": "9f8905eeb843f39e",
+      "durationMs": 5760,
+      "bytes": 46645
     },
     "ar/g/compete-more": {
       "text": "وهالطلب بعد دخل المنافسة!",
@@ -199,11 +151,11 @@
       "durationMs": 2721,
       "bytes": 22403
     },
-    "ar/g/day-down": {
-      "text": "اليوم راحت علينا نقاط. نعد على مهلنا قبل الجرس.",
-      "hash": "b0428436a3950fcf",
-      "durationMs": 4622,
-      "bytes": 37450
+    "ar/g/count-on": {
+      "text": "وبعدين نكمل العد عليه، حبة حبة.",
+      "hash": "b9c5a2c710e459aa",
+      "durationMs": 3590,
+      "bytes": 29300
     },
     "ar/g/delivery": {
       "text": "طلب توصيل! دبدوب يوصله بالسكوتر.",
@@ -218,40 +170,34 @@
       "bytes": 22194
     },
     "ar/g/goal": {
-      "text": "ديما، عندنا تحدي! إذا جمعنا مئتين نقطة بدون مساعدة، بابا راح يودينا البقالة ونشتري تاكيز!",
-      "hash": "15ff0b7248c05949",
-      "durationMs": 8080,
-      "bytes": 65244
+      "text": "ديما، عندنا تحدي! إذا جمعنا مئة نقطة بدون مساعدة، بابا راح يودينا البقالة ونشتري تاكيز!",
+      "hash": "6865f2979b0d7315",
+      "durationMs": 8160,
+      "bytes": 65871
     },
     "ar/g/goal-100": {
-      "text": "مئة نقطة! هذا نص الطريق يا ديما.",
-      "hash": "a40b356e2ae5a41c",
-      "durationMs": 3494,
-      "bytes": 28464
+      "text": "مئة نقطة! وصلنا يا ديما! قولي حق بابا: يلا نروح البقالة!",
+      "hash": "36a3220bf27dd401",
+      "durationMs": 5316,
+      "bytes": 43092
     },
-    "ar/g/goal-150": {
-      "text": "مئة وخمسين نقطة! باقي خمسين بس.",
-      "hash": "d8117504d13ca3e7",
-      "durationMs": 3372,
-      "bytes": 27628
-    },
-    "ar/g/goal-200": {
-      "text": "مئتين نقطة! وصلنا يا ديما! قولي حق بابا: يلا نروح البقالة!",
-      "hash": "65646a4310c2701e",
-      "durationMs": 5528,
-      "bytes": 44764
+    "ar/g/goal-25": {
+      "text": "خمسة وعشرين نقطة! بدينا الطريق.",
+      "hash": "caeeb1f4dc765d4d",
+      "durationMs": 3088,
+      "bytes": 25329
     },
     "ar/g/goal-50": {
-      "text": "جمعنا خمسين نقطة! بدينا الطريق.",
-      "hash": "156f66b7e05d4b6c",
-      "durationMs": 3183,
-      "bytes": 25956
+      "text": "خمسين نقطة! هذا نص الطريق يا ديما.",
+      "hash": "6214b7258e8bc2db",
+      "durationMs": 3403,
+      "bytes": 27837
     },
-    "ar/g/house-done": {
-      "text": "بيت العدد كمل! وهذي خمسة نقاط زيادة.",
-      "hash": "e087ffc7b874a487",
-      "durationMs": 3980,
-      "bytes": 32434
+    "ar/g/goal-75": {
+      "text": "خمسة وسبعين نقطة! باقي شوي بس.",
+      "hash": "7579f7e745f2a168",
+      "durationMs": 3045,
+      "bytes": 24911
     },
     "ar/g/near-1": {
       "text": "كل يوم نقرب من التاكيز.",
@@ -266,10 +212,10 @@
       "bytes": 25120
     },
     "ar/g/near-3": {
-      "text": "شوي شوي ونوصل المئتين.",
-      "hash": "31662bade17e6690",
-      "durationMs": 2632,
-      "bytes": 21567
+      "text": "شوي شوي ونوصل المئة.",
+      "hash": "f9bd992ca205be50",
+      "durationMs": 2361,
+      "bytes": 19478
     },
     "ar/g/new-customer": {
       "text": "زبون جديد صار يعرف بقالتنا!",
@@ -277,23 +223,11 @@
       "durationMs": 2719,
       "bytes": 22403
     },
-    "ar/g/new-day": {
-      "text": "يوم جديد، والبقالة تفتح.",
-      "hash": "c090b52ac96e6707",
-      "durationMs": 2625,
-      "bytes": 21567
-    },
     "ar/g/open": {
       "text": "البقالة فتحت! وأول زبون وصل.",
       "hash": "b5f27dc24be419d5",
       "durationMs": 3018,
       "bytes": 24702
-    },
-    "ar/g/points-no": {
-      "text": "الطلب ما كان مضبوط، فنقصت نقطتين. نعد على مهلنا قبل لا ندق الجرس.",
-      "hash": "66ca7f1ef4848c37",
-      "durationMs": 6341,
-      "bytes": 51243
     },
     "ar/g/points-yes": {
       "text": "الطلب مضبوط، وهذي نقطتين!",
@@ -319,12 +253,6 @@
       "durationMs": 2812,
       "bytes": 23030
     },
-    "ar/g/sticker": {
-      "text": "الزبون يبي الكل في كيس واحد. نختار ستيكر العدد.",
-      "hash": "2cd0fd4cdb65b08d",
-      "durationMs": 4508,
-      "bytes": 36614
-    },
     "ar/g/take-out": {
       "text": "وإذا زادت حبة، نلمسها وترجع.",
       "hash": "8b6749e7203da689",
@@ -348,18 +276,6 @@
       "hash": "7650f06387dcb29e",
       "durationMs": 4997,
       "bytes": 40585
-    },
-    "ar/g/two-bags": {
-      "text": "هذا الزبون يبي طلبه في كيسين. نوزعه مثل ما نبي.",
-      "hash": "b1bf6f3428a51bdf",
-      "durationMs": 4286,
-      "bytes": 34942
-    },
-    "ar/g/two-bags-new": {
-      "text": "كل مرة نوزعه غير، ونعبي بيت العدد.",
-      "hash": "254d49187ab02a3a",
-      "durationMs": 3508,
-      "bytes": 28673
     },
     "ar/n/0": {
       "text": "صفر.",

@@ -159,7 +159,6 @@ export function Receipt({
   n,
   good = 'choc',
   part = -1,
-  ask = false,
   className = '',
 }: {
   a: number
@@ -168,17 +167,15 @@ export function Receipt({
   /** The order's one good: the first chip takes its colour (brown, pink, purple), the second is lime. */
   good?: string
   part?: number
-  /** An order card: «a + b» only, the sum still to find. */
-  ask?: boolean
   className?: string
 }) {
   const on = (i: number) => (part === i ? 'is-said' : '')
   return (
     <div
-      className={`receipt receipt-${good} ${ask ? 'is-card' : ''} ${className}`}
+      className={`receipt receipt-${good} ${className}`}
       dir="rtl"
       role="img"
-      aria-label={ask || n === null ? `${ar(a)} زائد ${ar(b)}` : `${ar(a)} زائد ${ar(b)} يساوي ${ar(n)}`}
+      aria-label={n === null ? `${ar(a)} زائد ${ar(b)}` : `${ar(a)} زائد ${ar(b)} يساوي ${ar(n)}`}
     >
       <span className={`chip chip-first ${on(0)}`} data-part="a">
         {ar(a)}
@@ -187,7 +184,7 @@ export function Receipt({
       <span className={`chip chip-second ${on(2)}`} data-part="b">
         {ar(b)}
       </span>
-      {ask || n === null ? null : (
+      {n === null ? null : (
         <>
           <span className={`sign ${on(3)}`}>=</span>
           <span className={`chip chip-sum ${on(4)}`} data-part="sum">
@@ -204,12 +201,15 @@ export function TakisBag({ className = '' }: { className?: string }) {
   return <img className={`takis-bag ${className}`} src={takisBag} alt="" draggable={false} />
 }
 
+/** The board's track: 20 steps whatever the goal (§11.5: one step per 5 points). */
+export const BOARD_STEPS = 20
+
 /**
- * The prize board: the bag at the far end of a track of 20 steps (one per 10 points), filling left
- * to right like the number line, and her points as a numeral.
+ * The prize board: the bag at the far end of a track of 20 steps, filling left to right like the
+ * number line, and her points as a numeral.
  */
-export function PrizeBoard({ points, big = false, won = false, lit = false, today }: { points: number; big?: boolean; won?: boolean; lit?: boolean; today?: number }) {
-  const steps = Math.floor(Math.min(points, GOAL) / 10)
+export function PrizeBoard({ points, big = false, won = false, lit = false }: { points: number; big?: boolean; won?: boolean; lit?: boolean }) {
+  const steps = Math.floor((Math.min(points, GOAL) * BOARD_STEPS) / GOAL)
   return (
     <span className={`prize-board ${big ? 'is-big' : ''} ${won ? 'is-won' : ''} ${lit ? 'is-lit' : ''}`}>
       <span className="pb-points">
@@ -218,16 +218,8 @@ export function PrizeBoard({ points, big = false, won = false, lit = false, toda
           {ar(points)}
         </span>
       </span>
-      {today ? (
-        // Today's change at closing: the coins that came today pulse; the ones that went are faded.
-        <span className={`pb-today ${today > 0 ? 'is-up' : 'is-down'}`} data-today={today} role="img" aria-label={today > 0 ? `اليوم زادت ${ar(today)}` : `اليوم نقصت ${ar(-today)}`}>
-          {Array.from({ length: Math.min(20, Math.abs(today)) }, (_, i) => (
-            <Coin key={i} className="pb-today-coin" style={{ '--i': i } as CSSProperties} />
-          ))}
-        </span>
-      ) : null}
       <span className="pb-track" dir="ltr">
-        {Array.from({ length: GOAL / 10 }, (_, i) => (
+        {Array.from({ length: BOARD_STEPS }, (_, i) => (
           <span key={i} className={`pb-step ${i < steps ? 'on' : ''}`} />
         ))}
         <span className="pb-prize">
@@ -239,7 +231,7 @@ export function PrizeBoard({ points, big = false, won = false, lit = false, toda
   )
 }
 
-/** The golden coupon at 200 points. */
+/** The golden coupon at the goal. */
 export function CouponArt() {
   return (
     <div className="coupon-card">

@@ -2,7 +2,7 @@
 // little houses ٠–١٠ run left to right, like the number line in her book. Dabdoob waits on his
 // scooter at house a with the parcel; each tap on him is one house on; she taps the door where it
 // should go. Training: a trail of pieces marks the way and he says each house number. Competition:
-// no trail, no numbers said (he rides in silence if she asks), and a wrong door costs 2 points.
+// no trail, no numbers said (he rides in silence if she asks). A wrong door costs nothing (§11.3).
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { sfx } from '../audio/sfx'
 import { Bear } from '../art/Bear'
@@ -53,7 +53,7 @@ export function Street({
   mode: Mode
   guideOnce: (id: LineId, spot?: string | null) => Promise<void>
   onReady: (ready: boolean) => void
-  /** A wrong door at the first try (competition: 2 points leave the board). */
+  /** A wrong door at the first try (it is only remembered: no points for this order). */
   onMiss: () => void
   onDone: (result: StreetResult) => void
 }) {

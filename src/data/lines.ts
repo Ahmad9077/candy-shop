@@ -1,4 +1,4 @@
-// Every spoken line of «البقالة» (DESIGN.md §4, with the changes of §8.6, §9 and §10.4). Self-contained for Node
+// Every spoken line of «البقالة» (DESIGN.md §4, with the changes of §8.6, §9, §10.4, §11.7 and §12.3). Self-contained for Node
 // scripts.
 //
 // Three voices, two speakers:
@@ -28,8 +28,6 @@ export const LINES = {
   'c/hi-3': 'السلام عليكم!',
   'c/hi-4': 'صباح الخير!',
   'c/want': 'أبي',
-  'c/may-i': 'ممكن',
-  'c/two-bags': 'في كيسين',
   'c/thanks-1': 'شكراً!',
   'c/thanks-2': 'لذيذ!',
   'c/thanks-3': 'مشكورين!',
@@ -41,11 +39,6 @@ export const LINES = {
   'c/p-choc': 'كاكاو',
   'c/p-candy': 'حلاو',
   'c/p-takis': 'تاكيز',
-  'c/wait-1': 'لحظة، خل نعد.',
-  'c/wait-2': 'خل نشوف كم فيها.',
-  'c/wait-3': 'نعدهم؟',
-  'c/too-few': 'ناقص شوي.',
-  'c/too-many': 'هذا زايد.',
   'c/not-my-house-1': 'مو بيتي!',
   'c/not-my-house-2': 'بيتي مو هني!',
   'c/delivered': 'وصل الطلب! شكراً دبدوب.',
@@ -54,43 +47,36 @@ export const LINES = {
   'g/tap-jar': 'نلمس اللي يبيه الزبون، وتنزل حبة في العلبة.',
   'g/take-out': 'وإذا زادت حبة، نلمسها وترجع.',
   'g/ring-bell': 'وإذا كمل الطلب، ندق الجرس.',
-  'g/two-bags': 'هذا الزبون يبي طلبه في كيسين. نوزعه مثل ما نبي.',
-  'g/two-bags-new': 'كل مرة نوزعه غير، ونعبي بيت العدد.',
-  'g/house-done': 'بيت العدد كمل! وهذي خمسة نقاط زيادة.',
   'g/ready-box': 'هذي علبة جاهزة، وعددها مكتوب عليها. نكمل عليها بس.',
   'g/tap-box': 'نلمس العلبة ونسمع كم فيها.',
+  'g/count-on': 'وبعدين نكمل العد عليه، حبة حبة.',
   'g/delivery': 'طلب توصيل! دبدوب يوصله بالسكوتر.',
   'g/ride': 'كل لمسة يمشي دبدوب بيت واحد.',
   'g/door': 'وإذا وصل، نلمس باب البيت.',
-  'g/sticker': 'الزبون يبي الكل في كيس واحد. نختار ستيكر العدد.',
-  'g/bigger-first': 'نبدأ بالعدد الأكبر.',
-  'g/closed': 'البقالة سكرت. نعد نقاط اليوم!',
   'g/new-customer': 'زبون جديد صار يعرف بقالتنا!',
-  'g/new-day': 'يوم جديد، والبقالة تفتح.',
-  'g/goal': 'ديما، عندنا تحدي! إذا جمعنا مئتين نقطة بدون مساعدة، بابا راح يودينا البقالة ونشتري تاكيز!',
+  'g/goal': 'ديما، عندنا تحدي! إذا جمعنا مئة نقطة بدون مساعدة، بابا راح يودينا البقالة ونشتري تاكيز!',
   'g/train': 'بالبداية دبدوب يعد ويانا. هذا تدريب، وما فيه نقاط.',
-  'g/compete': 'بدت المنافسة! الحين نعد بروحنا. الطلب الصح بنقطتين، والغلط ينقص نقطتين.',
+  'g/bridge': 'الحين دبدوب يقول عدد العلبة بس، وإحنا نكمل العد.',
+  'g/compete': 'بدت المنافسة! الحين نعد بروحنا، وكل طلب مضبوط بنقطتين.',
   'g/compete-more': 'وهالطلب بعد دخل المنافسة!',
   'g/back-to-train': 'نتدرب شوي مع دبدوب، وبعدين نرجع للمنافسة.',
   'g/points-yes': 'الطلب مضبوط، وهذي نقطتين!',
-  'g/points-no': 'الطلب ما كان مضبوط، فنقصت نقطتين. نعد على مهلنا قبل لا ندق الجرس.',
-  'g/day-down': 'اليوم راحت علينا نقاط. نعد على مهلنا قبل الجرس.',
   'g/near-1': 'كل يوم نقرب من التاكيز.',
   'g/near-2': 'النقاط تزيد، والتاكيز يقرب!',
-  'g/near-3': 'شوي شوي ونوصل المئتين.',
-  'g/goal-50': 'جمعنا خمسين نقطة! بدينا الطريق.',
-  'g/goal-100': 'مئة نقطة! هذا نص الطريق يا ديما.',
-  'g/goal-150': 'مئة وخمسين نقطة! باقي خمسين بس.',
-  'g/goal-200': 'مئتين نقطة! وصلنا يا ديما! قولي حق بابا: يلا نروح البقالة!',
+  'g/near-3': 'شوي شوي ونوصل المئة.',
+  'g/goal-25': 'خمسة وعشرين نقطة! بدينا الطريق.',
+  'g/goal-50': 'خمسين نقطة! هذا نص الطريق يا ديما.',
+  'g/goal-75': 'خمسة وسبعين نقطة! باقي شوي بس.',
+  'g/goal-100': 'مئة نقطة! وصلنا يا ديما! قولي حق بابا: يلا نروح البقالة!',
 } as const
 
 export type LineId = keyof typeof LINES
 
 /** Lines joined to a number, before («أبي» + ٧) or after (٧ + «كاكاو»): no end mark. */
-export const PREFIX_LINES: readonly LineId[] = ['c/want', 'c/may-i', 'ui/plus', 'ui/equal', 'c/p-choc', 'c/p-candy', 'c/p-takis', 'c/two-bags']
+export const PREFIX_LINES: readonly LineId[] = ['c/want', 'ui/plus', 'ui/equal', 'c/p-choc', 'c/p-candy', 'c/p-takis']
 
 /** The only lines that say her name (and so may address a girl). */
-export const NAMED_LINES: readonly LineId[] = ['g/goal', 'g/goal-100', 'g/goal-200', 'c/hi-dima', 'c/thanks-dima']
+export const NAMED_LINES: readonly LineId[] = ['g/goal', 'g/goal-50', 'g/goal-100', 'c/hi-dima', 'c/thanks-dima']
 
 /** Recordings kept from the family's math quiz on purpose: the numbers, «زائد» and «يساوي». */
 export const REUSED_LINES: readonly LineId[] = ['ui/plus', 'ui/equal']
@@ -99,7 +85,6 @@ const family = (prefix: string) => (Object.keys(LINES) as LineId[]).filter((id) 
 export const HI_IDS = family('c/hi-').filter((id) => !NAMED_LINES.includes(id))
 export const THANKS_IDS = family('c/thanks-').filter((id) => !NAMED_LINES.includes(id))
 export const NEAR_IDS = family('g/near-')
-export const WAIT_IDS = family('c/wait-')
 export const NOT_MY_HOUSE_IDS = family('c/not-my-house-')
 
 export const clip = {
